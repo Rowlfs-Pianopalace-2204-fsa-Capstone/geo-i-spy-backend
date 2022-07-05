@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.2",
+    "twrnc": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "cross-env": "^7.0.3"
+  },
+  "scripts": {
+    "start-server": "JWT=shh NODE_ENV=shh nodemon server",
+    "windows-build": "cross-env JWT=shh NODE_ENV=shh nodemon server",
+    "seed": "node script/seed.js"
+  },
+  "version": "1.0.0",
+  "private": true,
+  "name": "geo-i-spy"
+}
