@@ -6,6 +6,7 @@ module.exports = router;
 router.use('/users', require('./users'));
 router.use('/challenges', require('./challenges'));
 router.use('/friends', require('./friends'));
+router.use('/achievements', require('./achievements'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
