@@ -7,7 +7,7 @@ const {
   models: { User },
 } = require('../server/db/index');
 const Challenge = require('../server/db/models/challenges');
-const Friends = require('../server/db/models/friends');
+const Followers = require('../server/db/models/followers');
 User;
 /**
  * seed - this function clears the database, updates tables to
@@ -42,7 +42,7 @@ async function seed() {
     });
   }
   // Friends
-  await users[3].addFriends(1);
+  await users[3].addFollowers(1);
   console.log(`seeded challenges ${challengeNames.length}`);
   console.log(`seeded successfully`);
   return 'Data seeded';

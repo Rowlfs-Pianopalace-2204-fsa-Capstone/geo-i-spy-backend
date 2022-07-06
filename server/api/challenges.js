@@ -22,13 +22,13 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
-    await Challenge.create({
+    const challenge = await Challenge.create({
       name: req.body.name,
       difficulty: req.body.difficulty,
       score: req.body.score,
       description: req.body.description,
     });
-    res.sendStatus(200);
+    res.json(challenge);
   } catch (err) {
     next(err);
   }
@@ -53,15 +53,16 @@ router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-router.put('/', requireToken, isAdmin, async (req, res, next) => {
+router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const challenge = await Challenge.update({
+    const challenge = await Challenge.findByPk(req.params.id);
+    const updatedChallenge = await challenge.update({
       name: req.body.name,
       difficulty: req.body.difficulty,
       score: req.body.score,
       description: req.body.description,
     });
-    res.send(challenge);
+    res.send(updatedChallenge);
   } catch (err) {
     next(err);
   }
