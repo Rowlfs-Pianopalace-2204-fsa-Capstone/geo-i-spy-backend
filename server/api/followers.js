@@ -16,10 +16,28 @@ router.get('/', requireToken, async (req, res, next) => {
         {
           model: User,
           as: 'followers',
+          attributes: ['username', 'img_url'],
         },
       ],
     });
-    res.send(reponse);
+    res.send(reponse.followers);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id', requireToken, async (req, res, next) => {
+  try {
+    const reponse = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'followers',
+          attributes: ['username', 'img_url'],
+        },
+      ],
+    });
+    res.send(reponse.followers);
   } catch (error) {
     next(error);
   }
