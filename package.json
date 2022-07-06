@@ -14,7 +14,7 @@
     "cross-env": "^7.0.3"
   },
   "scripts": {
-    "start": "JWT=shh NODE_ENV=shh node script/seed.js && node server/index.js",
+    "start": "cross-env JWT=shh NODE_ENV=shh node script/seed.js && node server/index.js",
     "start-server": "JWT=shh NODE_ENV=shh nodemon server",
     "windows-build": "cross-env JWT=shh NODE_ENV=shh nodemon server",
     "seed": "node script/seed.js"
