@@ -35,7 +35,7 @@ async function seed() {
       score: j * 10 + 5,
       description: 'Everyday items you can find easy.',
     });
-    const achievement = await users[0].addChallenge(challenge);
+    const achievement = await users[1].addChallenge(challenge);
     await achievement[0].update({
       img_url:
         'https://t4.ftcdn.net/jpg/03/54/26/09/360_F_354260981_mvf4Yt39tO1iAWkXeFcPayv0OkTw6p4j.jpg',

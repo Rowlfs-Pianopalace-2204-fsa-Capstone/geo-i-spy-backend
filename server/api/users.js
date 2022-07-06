@@ -5,7 +5,7 @@ const { requireToken } = require('./gateKeepingMiddleware');
 const { isAdmin } = require('./gateKeepingMiddleware');
 
 const {
-  models: { User, Friends },
+  models: { User },
 } = require('../db');
 module.exports = router;
 
