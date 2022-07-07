@@ -5,21 +5,39 @@ const { requireToken } = require('./gateKeepingMiddleware');
 const { isAdmin } = require('./gateKeepingMiddleware');
 
 const {
-  models: { User, Friends },
+  models: { User },
 } = require('../db');
 module.exports = router;
 
 router.get('/', requireToken, async (req, res, next) => {
   try {
-    const reponse = await User.findByPk(req.body.id, {
+    const reponse = await User.findByPk(req.user.id, {
       include: [
         {
           model: User,
-          as: 'friends',
+          as: 'followers',
+          attributes: ['username', 'img_url'],
         },
       ],
     });
-    res.send(reponse);
+    res.send(reponse.followers);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id', requireToken, async (req, res, next) => {
+  try {
+    const reponse = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'followers',
+          attributes: ['username', 'img_url'],
+        },
+      ],
+    });
+    res.send(reponse.followers);
   } catch (error) {
     next(error);
   }
@@ -28,7 +46,7 @@ router.get('/', requireToken, async (req, res, next) => {
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
     const user = req.user;
-    await user.addFriends(req.params.id);
+    await user.addFollowers(req.params.id);
     res.sendStatus(200);
   } catch (error) {
     next(error);
@@ -41,7 +59,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     if (user.id === req.params.id) {
       res.sendStatus(400);
     } else {
-      await user.removeFriends(req.params.id);
+      await user.removeFollowers(req.params.id);
     }
     res.sendStatus(200);
   } catch (error) {
