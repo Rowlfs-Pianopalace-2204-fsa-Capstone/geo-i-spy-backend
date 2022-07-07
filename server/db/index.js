@@ -32,7 +32,7 @@ module.exports = {
   db,
   models: {
     Achievements,
-    // Followers,
+    Followers,
     User,
     Picture,
     Challenge,
