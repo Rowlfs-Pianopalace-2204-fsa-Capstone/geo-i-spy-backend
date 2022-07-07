@@ -1,6 +1,6 @@
 /** @format */
 
-import cors from 'cors';
+const cors = require('cors');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
