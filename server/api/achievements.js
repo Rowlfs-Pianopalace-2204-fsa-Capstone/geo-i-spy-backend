@@ -10,6 +10,7 @@ const {
 const User = require('../db/models/user');
 const Achievements = require('../db/models/achievements');
 const uploadPicture = require('./cloudinary');
+const cloudinary = require('cloudinary').v2;
 module.exports = router;
 
 router.get('/', requireToken, async (req, res, next) => {
@@ -26,18 +27,27 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.post('/:id', requireToken, async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
-    const challenge = await Challenge.findByPk(req.params.id);
-    const completedChallenge = await challenge.addUser(req.user.id);
-    const picture = '';
-
+    // const challenge = await Challenge.findByPk(req.params.id);
+    // const completedChallenge = await challenge.addUser(req.user.id);
+    // const picture = new Image(req.body.picture);
+    // const url = uploadPicture(picture);
     //We need to add the image to the through table, however I don't know yet how to store images from the phone onto the server so this line will have to change
-    const updated = await completedChallenge[0].update({
-      img_url: uploadPicture(picture),
+    // const updated = await completedChallenge[0].update({
+    //   img_url: url,
+    // });
+    console.log('THIS RAN BEFORE CONFIG');
+    cloudinary.config({
+      cloud_name: 'hckemznha',
+      api_key: '756524156741189',
+      api_secret: 'IbgjGuRQjJDLAuEr1hum7VzCedM',
     });
-
-    res.json(updated);
+    console.log('THIS RAN AFTER CONFIG');
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr);
+    console.log(uploadResponse);
+    res.json({ msg: 'Worked!' });
   } catch (err) {
     next(err);
   }

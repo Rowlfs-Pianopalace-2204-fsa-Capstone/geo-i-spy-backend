@@ -1,5 +1,6 @@
 /** @format */
 const cloudinary = require('cloudinary').v2;
+
 cloudinary.config({
   cloud_name: 'hckemznha',
   api_key: '756524156741189',
@@ -16,5 +17,6 @@ const uploadPicture = async () => {
   console.log('RESPONSE!', reponse.url);
   return reponse.url;
 };
-console.log(uploadPicture());
+// console.log(uploadPicture())7;
+
 module.exports = uploadPicture;
