@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 
 //app.use(express.json());
 
-app.use(express.json({limit: '1mb', extended: true}));
+app.use(express.json({limit: '2mb', extended: true}));
 app.use(express.urlencoded({limit: '23mb', extended: true}));
 
 
