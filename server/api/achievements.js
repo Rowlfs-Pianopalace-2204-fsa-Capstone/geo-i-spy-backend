@@ -41,7 +41,7 @@ router.post('/id', async (req, res, next) => {
 
     const challenge = await Challenge.findByPk(req.params.id);
     const completedChallenge = await challenge.addUser(req.user.id);
-
+    //
     const updated = await completedChallenge[0].update({
       img_url: uploadResponse.url,
     });
