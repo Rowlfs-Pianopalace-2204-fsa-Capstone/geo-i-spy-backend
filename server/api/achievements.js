@@ -27,7 +27,7 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.post('/', requireToken, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     // const challenge = await Challenge.findByPk(req.params.id);
     // const completedChallenge = await challenge.addUser(req.user.id);
