@@ -27,7 +27,7 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.post('/:id', async (req, res, next) => {
+router.post('/:id', requireToken, async (req, res, next) => {
   try {
     cloudinary.config({
       cloud_name: 'hckemznha',
@@ -36,8 +36,6 @@ router.post('/:id', async (req, res, next) => {
     });
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
-    console.log(uploadResponse);
-    res.json({ msg: 'Worked!' });
 
     const challenge = await Challenge.findByPk(req.params.id);
     const completedChallenge = await challenge.addUser(req.user.id);
