@@ -27,16 +27,8 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/id', async (req, res, next) => {
   try {
-    // const challenge = await Challenge.findByPk(req.params.id);
-    // const completedChallenge = await challenge.addUser(req.user.id);
-    // const picture = new Image(req.body.picture);
-    // const url = uploadPicture(picture);
-    //We need to add the image to the through table, however I don't know yet how to store images from the phone onto the server so this line will have to change
-    // const updated = await completedChallenge[0].update({
-    //   img_url: url,
-    // });
     cloudinary.config({
       cloud_name: 'hckemznha',
       api_key: '756524156741189',
@@ -46,6 +38,15 @@ router.post('/', async (req, res, next) => {
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
     console.log(uploadResponse);
     res.json({ msg: 'Worked!' });
+
+    const challenge = await Challenge.findByPk(req.params.id);
+    const completedChallenge = await challenge.addUser(req.user.id);
+
+    const updated = await completedChallenge[0].update({
+      img_url: uploadResponse.url,
+    });
+
+    res.json({ updated, uploadResponse });
   } catch (err) {
     next(err);
   }
