@@ -9,7 +9,6 @@ const {
 } = require('../db');
 const User = require('../db/models/user');
 const Achievements = require('../db/models/achievements');
-const uploadPicture = require('./cloudinary');
 const cloudinary = require('cloudinary').v2;
 module.exports = router;
 
@@ -30,9 +29,9 @@ router.get('/', requireToken, async (req, res, next) => {
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
     cloudinary.config({
-      cloud_name: 'hckemznha',
-      api_key: '756524156741189',
-      api_secret: 'IbgjGuRQjJDLAuEr1hum7VzCedM',
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRETS,
     });
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
@@ -44,7 +43,7 @@ router.post('/:id', requireToken, async (req, res, next) => {
       img_url: uploadResponse.url,
     });
 
-    res.json({ updated, uploadResponse });
+    res.sendStatus(200);
   } catch (err) {
     next(err);
   }
