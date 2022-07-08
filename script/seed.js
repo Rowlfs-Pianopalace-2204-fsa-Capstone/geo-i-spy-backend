@@ -46,7 +46,7 @@ async function seed() {
     const challenge = await Challenge.create({
       name: challengeNames[j],
       difficulty: 'easy',
-      score: j * 10 + 5,
+      score: j * 2 + 5,
       description: 'Everyday items you can find easy.',
     });
     const achievement = await users[1].addChallenge(challenge);
