@@ -12,25 +12,16 @@ module.exports = app;
 
 app.use(morgan('dev'));
 
-app.use(express.json());
 
-app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json({limit: '20mb', extended: true}));
+app.use(express.urlencoded({limit: '20mb', extended: true}));
 
-app.use(
-  bodyParser.json({
-    limit: '10mb',
-  })
-);
 
-app.use(
-  bodyParser.urlencoded({
-    limit: '10mb',
-    parameterLimit: 10000000,
-    extended: true,
-  })
-);
+app.use(bodyParser.json({limit: '20mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
+
+
 
 
 
