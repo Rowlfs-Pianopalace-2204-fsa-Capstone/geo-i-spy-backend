@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,22 @@ module.exports = app;
 app.use(morgan('dev'));
 
 app.use(express.json());
+
+app.use(bodyParser.json());
+
+app.use(
+  bodyParser.json({
+    limit: '10mb',
+  })
+);
+
+app.use(
+  bodyParser.urlencoded({
+    limit: '10mb',
+    parameterLimit: 100000,
+    extended: true,
+  })
+);
 
 app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
