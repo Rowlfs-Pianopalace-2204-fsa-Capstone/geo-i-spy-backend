@@ -14,7 +14,7 @@ const challengeNames = [
   'Dog',
   'Waste Container',
 ];
-const userNames = ['cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
+const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
 const {
   db,
