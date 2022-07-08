@@ -7,7 +7,7 @@ const {
   models: { User },
 } = require('../server/db/index');
 const Challenge = require('../server/db/models/challenges');
-const Friends = require('../server/db/models/friends');
+const Followers = require('../server/db/models/followers');
 User;
 /**
  * seed - this function clears the database, updates tables to
@@ -35,14 +35,14 @@ async function seed() {
       score: j * 10 + 5,
       description: 'Everyday items you can find easy.',
     });
-    const achievement = await users[0].addChallenge(challenge);
+    const achievement = await users[1].addChallenge(challenge);
     await achievement[0].update({
       img_url:
         'https://t4.ftcdn.net/jpg/03/54/26/09/360_F_354260981_mvf4Yt39tO1iAWkXeFcPayv0OkTw6p4j.jpg',
     });
   }
   // Friends
-  await users[3].addFriends(1);
+  await users[3].addFollowers(1);
   console.log(`seeded challenges ${challengeNames.length}`);
   console.log(`seeded successfully`);
   return 'Data seeded';

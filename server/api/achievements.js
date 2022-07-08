@@ -37,15 +37,11 @@ router.post('/', requireToken, async (req, res, next) => {
     // const updated = await completedChallenge[0].update({
     //   img_url: url,
     // });
-    console.log('THIS RAN BEFORE CONFIG');
     cloudinary.config({
       cloud_name: 'hckemznha',
       api_key: '756524156741189',
       api_secret: 'IbgjGuRQjJDLAuEr1hum7VzCedM',
     });
-
-    console.log('THIS RAN AFTER CONFIG');
-
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
     console.log(uploadResponse);

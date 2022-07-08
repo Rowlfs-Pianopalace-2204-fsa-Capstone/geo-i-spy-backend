@@ -16,7 +16,7 @@
     "cross-env": "^7.0.3"
   },
   "scripts": {
-    "start": "JWT=shh NODE_ENV=shh node script/seed.js && node server/index.js",
+    "start": "node script/seed.js && node server/index.js",
     "start-server": "JWT=shh NODE_ENV=shh nodemon server",
     "windows-build": "cross-env CLOUDINARY_URL=cloudinary://756524156741189:IbgjGuRQjJDLAuEr1hum7VzCedM@hckemznha JWT=shh NODE_ENV=shh nodemon server",
     "seed": "node script/seed.js"
