@@ -29,7 +29,7 @@ app.use(
     extended: true,
   })
 );
-
+app.use(express.bodyParser({ limit: '10mb' }));
 app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
