@@ -14,22 +14,8 @@ app.use(morgan('dev'));
 
 app.use(express.json());
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
 
-app.use(
-  bodyParser.json({
-    limit: '10mb',
-  })
-);
-
-app.use(
-  bodyParser.urlencoded({
-    limit: '10mb',
-    parameterLimit: 100000,
-    extended: true,
-  })
-);
-app.use(express.bodyParser({ limit: '10mb' }));
 app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
