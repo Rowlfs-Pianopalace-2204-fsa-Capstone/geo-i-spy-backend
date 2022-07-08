@@ -15,7 +15,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(
   bodyParser.json({
     limit: '10mb',
@@ -30,7 +32,7 @@ app.use(
   })
 );
 
-// app.use(express.bodyParser({ limit: '10mb' }));
+
 
 app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
