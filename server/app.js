@@ -27,7 +27,7 @@ app.use(
 app.use(
   bodyParser.urlencoded({
     limit: '10mb',
-    parameterLimit: 100000,
+    parameterLimit: 10000000,
     extended: true,
   })
 );
