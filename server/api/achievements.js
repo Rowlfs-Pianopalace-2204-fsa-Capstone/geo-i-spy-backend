@@ -43,7 +43,9 @@ router.post('/', requireToken, async (req, res, next) => {
       api_key: '756524156741189',
       api_secret: 'IbgjGuRQjJDLAuEr1hum7VzCedM',
     });
+
     console.log('THIS RAN AFTER CONFIG');
+
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
     console.log(uploadResponse);
