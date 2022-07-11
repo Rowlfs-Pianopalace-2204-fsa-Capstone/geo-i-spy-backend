@@ -76,7 +76,7 @@ router.post('/edit/photo', requireToken, async (req, res, next) => {
     const user = req.user;
 
     await user.update({ img_url: uploadResponse.url });
-    res.send(user);
+    res.send(uploadResponse.url);
   } catch (err) {
     next(err);
   }
