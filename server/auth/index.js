@@ -35,11 +35,7 @@ router.post('/signup', async (req, res, next) => {
 
 router.get('/me', requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.user.id, {
-      include: {
-        model: Challenge,
-      },
-    });
+    const user = await User.findByPk(req.user.id);
     res.send(user);
   } catch (ex) {
     next(ex);
