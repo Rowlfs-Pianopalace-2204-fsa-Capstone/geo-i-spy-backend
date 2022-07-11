@@ -34,9 +34,7 @@ router.post('/signup', async (req, res, next) => {
 router.get('/me', async (req, res, next) => {
   try {
     let user = await User.findByToken(req.headers.authorization);
-    user = await User.findByPk(user.id, {
-      attributes: ['username', 'id', 'isAdmin'],
-    });
+    user = await User.findByPk(user.id);
     res.send(user);
   } catch (ex) {
     next(ex);
