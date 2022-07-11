@@ -43,9 +43,17 @@ async function seed() {
   }
   console.log(`seeded users ${users.length}`);
   for (let j = 0; j < challengeNames.length; j++) {
+    let difficulty;
+    if (j < 8) {
+      difficulty = 'common';
+    } else if (j < 11) {
+      difficulty = 'uncommon';
+    } else {
+      difficulty = 'rare';
+    }
     const challenge = await Challenge.create({
       name: challengeNames[j],
-      difficulty: 'easy',
+      difficulty: difficulty,
       score: j * 2 + 5,
       description: 'Everyday items you can find easy.',
     });
