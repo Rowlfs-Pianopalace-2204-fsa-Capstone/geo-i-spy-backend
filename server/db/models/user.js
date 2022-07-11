@@ -25,6 +25,8 @@ const User = db.define('user', {
   },
   img_url: {
     type: Sequelize.STRING,
+    defaultValue:
+      'https://res.cloudinary.com/hckemznha/image/upload/v1657506408/default-profile-picture1_m7cxma.jpg',
   },
   email: {
     type: Sequelize.STRING,
