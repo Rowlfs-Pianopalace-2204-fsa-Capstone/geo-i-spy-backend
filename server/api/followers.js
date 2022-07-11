@@ -85,3 +85,14 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/search/:id', async (req, res, next) => {
+  try {
+    let searched = await User.findByPk(req.params.id, {
+      attributes: ['id', 'username', 'img_url', 'biography', 'score', 'email'],
+    });
+    res.send(searched);
+  } catch (error) {
+    next(error);
+  }
+});
