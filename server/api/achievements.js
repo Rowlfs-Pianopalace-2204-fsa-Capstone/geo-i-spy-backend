@@ -1,4 +1,5 @@
 /** @format */
+const { Op } = require('sequelize');
 
 const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleware');
@@ -14,11 +15,23 @@ module.exports = router;
 
 router.get('/', requireToken, async (req, res, next) => {
   try {
-    const achievements = await Achievements.findAll({
-      where: {
-        userId: req.user.id,
+    const achievements = await Challenge.findAll({
+      include: {
+        model: User,
+        where: {
+          id: req.user.id,
+        },
+        attributes: ['id'],
       },
     });
+    const challenges = await Challenge.findAll();
+    for (let i = 0; i < challenges.length; i++) {
+      // console.log(challenges[i]);
+      if (!(await challenges[i].hasUser(req.user.id))) {
+        console.log('IF RAN');
+        achievements.push(challenges[i]);
+      }
+    }
 
     res.send(achievements);
   } catch (err) {
