@@ -15,8 +15,25 @@ router.get('/', requireToken, async (req, res, next) => {
       include: [
         {
           model: User,
+          as: 'followed',
+          attributes: ['id', 'username', 'img_url'],
+        },
+      ],
+    });
+    res.send(reponse.followed);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/following', requireToken, async (req, res, next) => {
+  try {
+    const reponse = await User.findByPk(req.user.id, {
+      include: [
+        {
+          model: User,
           as: 'followers',
-          attributes: ['username', 'img_url'],
+          attributes: ['id', 'username', 'img_url'],
         },
       ],
     });
