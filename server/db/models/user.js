@@ -43,6 +43,10 @@ const User = db.define('user', {
   biography: {
     type: Sequelize.TEXT,
   },
+  dailyToken: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
+  },
 });
 
 module.exports = User;
