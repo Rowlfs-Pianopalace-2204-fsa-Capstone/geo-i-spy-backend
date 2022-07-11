@@ -36,14 +36,32 @@ router.post('/:id', requireToken, async (req, res, next) => {
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
 
-    const challenge = await Challenge.findByPk(req.params.id);
+    let challenge = await Challenge.findByPk(req.params.id, {
+      include: {
+        model: User,
+        where: {
+          id: req.user.id,
+        },
+      },
+    });
+    if (!challenge) {
+      challenge = await Challenge.findByPk(req.params.id);
+    }
     const completedChallenge = await challenge.addUser(req.user.id);
     //
-    const updated = await completedChallenge[0].update({
-      img_url: uploadResponse.url,
-    });
+    if (completedChallenge) {
+      await completedChallenge[0].update({
+        img_url: uploadResponse.url,
+      });
+      req.user.update({
+        score: req.user.score + challenge.score,
+      });
+    } else {
+      const updatePicture = challenge.users[0].Achievement;
+      updatePicture.update({ img_url: uploadResponse.url });
+    }
 
-    res.sendStatus(200);
+    res.send(challenge);
   } catch (err) {
     next(err);
   }

@@ -57,6 +57,7 @@ async function seed() {
   }
   // Friends
   await users[3].addFollowers(1);
+  await users[2].addFollowers(1);
   console.log(`seeded challenges ${challengeNames.length}`);
   console.log(`seeded successfully`);
   return 'Data seeded';
