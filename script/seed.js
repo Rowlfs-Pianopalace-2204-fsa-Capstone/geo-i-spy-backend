@@ -1,18 +1,18 @@
 /** @format */
 const challengeNames = [
   'Bottle',
-  'Vending Machine',
-  'Beverage Can',
-  'Fire Hydrant',
-  'Manhole Cover',
+  'Vending machine',
+  'Beverage can',
+  'Fire hydrant',
+  'Manhole cover',
   'Bench',
   'Mailbox',
   'Mouse',
   'Laptop',
-  'Stop Sign',
+  'Stop sign',
   'Horse',
   'Dog',
-  'Waste Container',
+  'Waste container',
 ];
 const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
