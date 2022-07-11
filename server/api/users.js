@@ -74,10 +74,17 @@ router.put('/edit/photo', requireToken, async (req, res, next) => {
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(fileStr);
     const user = req.user;
+    const oldPhoto = user.img_id;
 
-    await user.update({ img_url: uploadResponse.url });
-    const url = uploadResponse.url;
-    res.json(url);
+    await user.update({
+      img_url: uploadResponse.url,
+      img_id: uploadResponse.public_id,
+    });
+    if (oldPhoto !== null) {
+      await cloudinary.uploader.destroy(oldPhoto);
+    }
+
+    res.json(uploadResponse.url);
   } catch (err) {
     next(err);
   }
