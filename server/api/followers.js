@@ -7,24 +7,8 @@ const { isAdmin } = require('./gateKeepingMiddleware');
 const {
   models: { User },
 } = require('../db');
+const e = require('express');
 module.exports = router;
-
-router.get('/', requireToken, async (req, res, next) => {
-  try {
-    const reponse = await User.findByPk(req.user.id, {
-      include: [
-        {
-          model: User,
-          as: 'followers',
-          attributes: ['username', 'img_url'],
-        },
-      ],
-    });
-    res.send(reponse.followers);
-  } catch (error) {
-    next(error);
-  }
-});
 
 router.get('/:id', requireToken, async (req, res, next) => {
   try {
@@ -32,8 +16,43 @@ router.get('/:id', requireToken, async (req, res, next) => {
       include: [
         {
           model: User,
+          as: 'followed',
+          attributes: [
+            'id',
+            'username',
+            'img_url',
+            'biography',
+            'score',
+            'email',
+          ],
+        },
+      ],
+    });
+    if (reponse) {
+      res.send(reponse.followed);
+    } else {
+      reponse.sendStatus(401);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/following/:id', requireToken, async (req, res, next) => {
+  try {
+    const reponse = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
           as: 'followers',
-          attributes: ['username', 'img_url'],
+          attributes: [
+            'id',
+            'username',
+            'img_url',
+            'biography',
+            'score',
+            'email',
+          ],
         },
       ],
     });
