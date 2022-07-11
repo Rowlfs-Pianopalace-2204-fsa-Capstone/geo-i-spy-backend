@@ -4,13 +4,14 @@
 
 const { db } = require('./db');
 const {
-  models: { Challenge },
+  models: { Challenge, User },
 } = require('./db');
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 const seed = require('../script/seed');
 const weeklyChallenge = async () => {
   const challenges = await Challenge.findAll();
+  await User.update({ dailyToken: 1 }, { where: { dailyToken: 0 } });
   let currentWeekChallengeNum = null;
   for (let i = 0; i < challenges.length; i++) {
     if (challenges[i].weeklyChallenge) {
