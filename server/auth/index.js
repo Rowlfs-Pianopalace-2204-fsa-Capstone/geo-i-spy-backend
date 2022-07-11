@@ -1,9 +1,11 @@
 /** @format */
+const { requireToken } = require('../api/gateKeepingMiddleware');
 
 const router = require('express').Router();
 const {
   models: { User },
 } = require('../db');
+const Challenge = require('../db/models/challenges');
 module.exports = router;
 
 router.post('/login', async (req, res, next) => {
@@ -31,10 +33,13 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.get('/me', async (req, res, next) => {
+router.get('/me', requireToken, async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.headers.authorization);
-    user = await User.findByPk(user.id);
+    const user = await User.findByPk(req.user.id, {
+      include: {
+        model: Challenge,
+      },
+    });
     res.send(user);
   } catch (ex) {
     next(ex);
