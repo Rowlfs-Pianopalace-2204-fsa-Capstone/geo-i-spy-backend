@@ -64,7 +64,7 @@ router.put('/edit', requireToken, async (req, res, next) => {
   }
 });
 
-router.post('/edit/photo', requireToken, async (req, res, next) => {
+router.put('/edit/photo', requireToken, async (req, res, next) => {
   try {
     cloudinary.config({
       cloud_name: process.env.CLOUD_NAME,
@@ -76,7 +76,8 @@ router.post('/edit/photo', requireToken, async (req, res, next) => {
     const user = req.user;
 
     await user.update({ img_url: uploadResponse.url });
-    res.send(uploadResponse.url);
+    const url = uploadResponse.url;
+    res.json(url);
   } catch (err) {
     next(err);
   }
