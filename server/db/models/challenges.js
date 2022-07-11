@@ -29,6 +29,10 @@ const Challenge = db.define('challenge', {
       notEmpty: true,
     },
   },
+  weeklyChallenge: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Challenge;
