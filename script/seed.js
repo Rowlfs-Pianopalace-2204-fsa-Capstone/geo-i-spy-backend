@@ -15,7 +15,8 @@ const challengeNames = [
   'Waste container',
   'Fountain',
   'Flower',
-  'Street light',
+  'Traffic light',
+  'Cone',
 ];
 const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
