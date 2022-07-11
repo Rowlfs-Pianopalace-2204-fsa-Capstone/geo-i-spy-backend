@@ -39,13 +39,13 @@ router.get('/', requireToken, async (req, res, next) => {
 
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
-    // cloudinary.config({
-    //   cloud_name: process.env.CLOUD_NAME,
-    //   api_key: process.env.API_KEY,
-    //   api_secret: process.env.API_SECRETS,
-    // });
-    // const fileStr = req.body.data;
-    // const uploadResponse = await cloudinary.uploader.upload(fileStr);
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRETS,
+    });
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr);
 
     let challenge = await Challenge.findByPk(req.params.id, {
       include: {
@@ -62,7 +62,7 @@ router.post('/:id', requireToken, async (req, res, next) => {
     //
     if (completedChallenge) {
       await completedChallenge[0].update({
-        img_url: 'uploadResponse.url',
+        img_url: uploadResponse.url,
       });
       req.user.update({
         score: req.user.score + challenge.score,
@@ -75,7 +75,7 @@ router.post('/:id', requireToken, async (req, res, next) => {
         });
       }
       const updatePicture = challenge.users[0].Achievement;
-      updatePicture.update({ img_url: 'uploadResponse.url' });
+      updatePicture.update({ img_url: uploadResponse.url });
     }
 
     res.send(challenge);
