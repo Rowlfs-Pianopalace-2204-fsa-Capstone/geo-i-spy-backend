@@ -3,6 +3,7 @@
 const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleware');
 const { isAdmin } = require('./gateKeepingMiddleware');
+const cloudinary = require('cloudinary').v2;
 
 const {
   models: { User },
@@ -60,6 +61,24 @@ router.put('/edit', requireToken, async (req, res, next) => {
     res.json(user);
   } catch (error) {
     next(error);
+  }
+});
+
+router.post('/edit/photo', requireToken, async (req, res, next) => {
+  try {
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRETS,
+    });
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr);
+    const user = req.user;
+
+    await user.update({ img_url: uploadResponse.url });
+    res.send(uploadResponse.url);
+  } catch (err) {
+    next(err);
   }
 });
 
