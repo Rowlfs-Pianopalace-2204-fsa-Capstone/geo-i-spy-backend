@@ -78,7 +78,17 @@ router.post('/:id', requireToken, async (req, res, next) => {
       updatePicture.update({ img_url: uploadResponse.url });
     }
 
-    res.send(challenge);
+    const fullAchievementObj = await Challenge.findByPk(req.params.id, {
+      include: {
+        model: User,
+        where: {
+          id: req.user.id,
+        },
+        attributes: ['id'],
+      },
+    });
+
+    res.send(fullAchievementObj);
   } catch (err) {
     next(err);
   }
