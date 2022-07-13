@@ -8,6 +8,7 @@ const {
   models: { User },
 } = require('../db');
 const e = require('express');
+const { Op, Sequelize } = require('sequelize');
 module.exports = router;
 
 router.get('/:id', requireToken, async (req, res, next) => {
@@ -88,10 +89,32 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 router.get('/search/:id', async (req, res, next) => {
   try {
-    let searched = await User.findByPk(req.params.id, {
+    let userList = [];
+    if (parseInt(req.params.id)) {
+      let searched = await User.findByPk(req.params.id, {
+        attributes: [
+          'id',
+          'username',
+          'img_url',
+          'biography',
+          'score',
+          'email',
+        ],
+      });
+      userList.push(searched);
+    }
+
+    const term = '%' + req.params.id + '%';
+    const users = await User.findAll({
       attributes: ['id', 'username', 'img_url', 'biography', 'score', 'email'],
+      where: {
+        username: {
+          [Sequelize.Op.iLike]: term,
+        },
+      },
     });
-    res.send(searched);
+    userList = [...userList, ...users];
+    res.send(userList);
   } catch (error) {
     next(error);
   }

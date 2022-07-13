@@ -9,7 +9,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "pg": "^8.7.3",
-    "sequelize": "^6.21.2",
+    "sequelize": "^6.21.3",
     "twrnc": "^3.3.3"
   },
   "devDependencies": {
