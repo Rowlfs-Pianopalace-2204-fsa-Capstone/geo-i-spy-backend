@@ -22,7 +22,7 @@ router.get('/feed', requireToken, async (req, res, next) => {
         {
           model: User,
           as: 'followers',
-          attributes: ['id', 'username'],
+          attributes: ['id', 'username', 'img_url'],
           include: {
             model: Challenge,
           },
@@ -37,6 +37,7 @@ router.get('/feed', requireToken, async (req, res, next) => {
           challenge: reponse.followers[0].challenges[0],
           username: reponse.followers[0].username,
           id: reponse.followers[0].id,
+          img: reponse.followers[0].img_url,
         };
         allFollowingAchievements.push(temp);
         reponse.followers[0].challenges.shift();
