@@ -30,8 +30,10 @@ router.get('/feed', requireToken, async (req, res, next) => {
       ],
     });
     const allFollowingAchievements = [];
-    while (reponse.followers.length > 0) {
+    let i = 0;
+    while (reponse.followers.length > i) {
       if (reponse.followers[0].challenges[0]) {
+        reponse.followers[0].challenges[0].name = reponse.followers[0].username;
         allFollowingAchievements.push(reponse.followers[0].challenges.shift());
       } else {
         reponse.followers.shift();
