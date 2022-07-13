@@ -33,14 +33,22 @@ router.get('/feed', requireToken, async (req, res, next) => {
     let i = 0;
     while (reponse.followers.length > i) {
       if (reponse.followers[0].challenges[0]) {
-        reponse.followers[0].challenges[0].name = reponse.followers[0].username;
-        allFollowingAchievements.push(reponse.followers[0].challenges.shift());
+        const temp = {
+          challenge: reponse.followers[0].challenges[0],
+          username: reponse.followers[0].username,
+          id: reponse.followers[0].id,
+        };
+        allFollowingAchievements.push(temp);
+        reponse.followers[0].challenges.shift();
       } else {
         reponse.followers.shift();
       }
     }
     allFollowingAchievements.sort(function (x, y) {
-      return new Date(x.Achievement.createAt) - new Date(y.Achievement.creatAT);
+      return (
+        new Date(x.challenge.Achievement.createAt) -
+        new Date(y.challenge.Achievement.creatAT)
+      );
     });
     res.send(allFollowingAchievements);
   } catch (err) {
