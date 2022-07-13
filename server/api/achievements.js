@@ -10,8 +10,41 @@ const {
 } = require('../db');
 const User = require('../db/models/user');
 const Achievements = require('../db/models/achievements');
+const e = require('express');
 const cloudinary = require('cloudinary').v2;
 module.exports = router;
+
+router.get('/feed', requireToken, async (req, res, next) => {
+  try {
+    const reponse = await User.findByPk(req.user.id, {
+      attributes: ['id'],
+      include: [
+        {
+          model: User,
+          as: 'followers',
+          attributes: ['id', 'username'],
+          include: {
+            model: Challenge,
+          },
+        },
+      ],
+    });
+    const allFollowingAchievements = [];
+    while (reponse.followers.length > 0) {
+      if (reponse.followers[0].challenges[0]) {
+        allFollowingAchievements.push(reponse.followers[0].challenges.shift());
+      } else {
+        reponse.followers.shift();
+      }
+    }
+    allFollowingAchievements.sort(function (x, y) {
+      return new Date(x.Achievement.createAt) - new Date(y.Achievement.creatAT);
+    });
+    res.send(allFollowingAchievements);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get('/', requireToken, async (req, res, next) => {
   try {
@@ -26,9 +59,7 @@ router.get('/', requireToken, async (req, res, next) => {
     });
     const challenges = await Challenge.findAll();
     for (let i = 0; i < challenges.length; i++) {
-      // console.log(challenges[i]);
       if (!(await challenges[i].hasUser(req.user.id))) {
-        console.log('IF RAN');
         achievements.push(challenges[i]);
       }
     }
