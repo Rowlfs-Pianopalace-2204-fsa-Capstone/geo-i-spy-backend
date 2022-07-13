@@ -28,7 +28,14 @@ router.get('/:id', requireToken, async (req, res, next) => {
       user = await User.findByPk(req.user.id);
     } else {
       user = await User.findByPk(req.params.id, {
-        attributes: ['username', 'img_url', 'score', 'biography', 'createdAt'],
+        attributes: [
+          'id',
+          'username',
+          'img_url',
+          'biography',
+          'score',
+          'email',
+        ],
       });
     }
     res.json(user);

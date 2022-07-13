@@ -87,7 +87,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
   }
 });
 
-router.get('/search/:id', async (req, res, next) => {
+router.get('/search/:id', requireToken, async (req, res, next) => {
   try {
     let userList = [];
     if (parseInt(req.params.id)) {
@@ -114,6 +114,8 @@ router.get('/search/:id', async (req, res, next) => {
       },
     });
     userList = [...userList, ...users];
+    userList = userList.filter((e) => e.username !== req.user.username);
+
     res.send(userList);
   } catch (error) {
     next(error);
