@@ -43,6 +43,10 @@ const init = async () => {
       await db.sync();
     }
     io.on('connection', (client) => {
+      client.on('resetFeed', () => {
+        const users = User.findAll();
+        client.broadcast.emit('resetFeed', users);
+      });
       client.on('event', (data) => {
         console.log('event:', data);
       });

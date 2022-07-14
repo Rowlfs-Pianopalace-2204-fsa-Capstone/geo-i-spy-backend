@@ -66,6 +66,9 @@ router.get('/following/:id', requireToken, async (req, res, next) => {
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
     const user = req.user;
+    if (parseInt(user.id) === parseInt(req.params.id)) {
+      res.sendStatus(400);
+    }
     await user.addFollowers(req.params.id);
     res.sendStatus(200);
   } catch (error) {
@@ -76,12 +79,12 @@ router.post('/:id', requireToken, async (req, res, next) => {
 router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const user = req.user;
-    if (user.id === req.params.id) {
+    if (parseInt(user.id) === parseInt(req.params.id)) {
       res.sendStatus(400);
     } else {
       await user.removeFollowers(req.params.id);
+      res.sendStatus(200);
     }
-    res.sendStatus(200);
   } catch (error) {
     next(error);
   }
@@ -105,6 +108,7 @@ router.get('/search/:id', requireToken, async (req, res, next) => {
     }
 
     const term = '%' + req.params.id + '%';
+
     const users = await User.findAll({
       attributes: ['id', 'username', 'img_url', 'biography', 'score', 'email'],
       where: {
