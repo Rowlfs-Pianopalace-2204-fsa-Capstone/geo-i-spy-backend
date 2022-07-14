@@ -17,8 +17,9 @@ module.exports = router;
 router.get('/feed', requireToken, async (req, res, next) => {
   try {
     const reponse = await User.findByPk(req.user.id, {
-      attributes: ['id'],
+      attributes: ['id', 'username', 'img_url'],
       include: [
+        { model: Challenge },
         {
           model: User,
           as: 'followers',
@@ -45,6 +46,22 @@ router.get('/feed', requireToken, async (req, res, next) => {
         reponse.followers.shift();
       }
     }
+    i = 0;
+    while (reponse.challenges.length > i) {
+      if (reponse.challenges[0]) {
+        const temp = {
+          challenge: reponse.challenges[0],
+          username: reponse.username,
+          id: reponse.id,
+          img: reponse.img_url,
+        };
+        allFollowingAchievements.push(temp);
+        reponse.challenges.shift();
+      } else {
+        reponse.challenges.shift();
+      }
+    }
+    // allFollowingAchievements.push(reponse);
     allFollowingAchievements.sort(function (x, y) {
       return (
         new Date(x.challenge.Achievement.createAt) -
