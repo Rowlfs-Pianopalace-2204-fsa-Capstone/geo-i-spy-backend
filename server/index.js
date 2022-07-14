@@ -44,8 +44,9 @@ const init = async () => {
     }
     io.on('connection', (client) => {
       client.on('resetFeed', () => {
+        console.log('resetFeed RAN');
         const users = User.findAll();
-        client.broadcast.emit('resetFeed', users);
+        io.sockets.emit('resetFeed', users);
       });
       client.on('event', (data) => {
         console.log('event:', data);
