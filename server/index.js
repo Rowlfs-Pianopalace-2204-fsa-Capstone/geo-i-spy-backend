@@ -9,6 +9,9 @@ const {
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 const seed = require('../script/seed');
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 const weeklyChallenge = async () => {
   const challenges = await Challenge.findAll();
   await User.update({ dailyToken: 1 }, { where: { dailyToken: 0 } });
@@ -39,7 +42,21 @@ const init = async () => {
     } else {
       await db.sync();
     }
-    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+    io.on('connection', (client) => {
+      client.on('event', (data) => {
+        console.log('event:', data);
+      });
+      client.on('disconnect', () => {
+        console.log('disconnected');
+      });
+    });
+
+    setInterval(() => {
+      io.sockets.emit('time-msg', { time: new Date().toISOString() });
+    }, 1000);
+
+    //app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+    server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
     weeklyChallenge();
     setInterval(weeklyChallenge, 86400000);
