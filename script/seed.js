@@ -72,7 +72,7 @@ async function seed() {
     });
   }
   // Friends
-  const room = await Room.create();
+  let room = await Room.create();
   await users[3].addFollowers(1);
   await users[2].addFollowers(1);
 
@@ -82,15 +82,36 @@ async function seed() {
   await room.addUser(users[2]);
   await room.addUser(users[1]);
 
-  const message = await Message.create({ message: 'wow!' });
-  const message3 = await Message.create({ message: 'wow!' });
-  const message2 = await Message.create({ message: 'You suck!' });
+  let message = await Message.create({ message: 'wow!' });
+  let message3 = await Message.create({ message: 'wow!' });
+  let message2 = await Message.create({ message: 'You suck!' });
 
   await users[2].addMessage(message2);
   await room.addMessage(message2);
 
   // console.log(message);
   await users[1].addMessage(message);
+  await room.addMessage(message);
+  await users[1].addMessage(message3);
+  await room.addMessage(message3);
+
+  room = await Room.create();
+
+  await users[4].addRoom(room);
+  await users[3].addRoom(room);
+
+  await room.addUser(users[4]);
+  await room.addUser(users[3]);
+
+  message = await Message.create({ message: 'wow!' });
+  message3 = await Message.create({ message: 'wow!' });
+  message2 = await Message.create({ message: 'You suck!' });
+
+  await users[4].addMessage(message2);
+  await room.addMessage(message2);
+
+  // console.log(message);
+  await users[3].addMessage(message);
   await room.addMessage(message);
   await users[1].addMessage(message3);
   await room.addMessage(message3);
