@@ -53,11 +53,11 @@ async function seed() {
   for (let j = 0; j < challengeNames.length; j++) {
     let difficulty;
     if (j < 8) {
-      difficulty = 'common';
+      difficulty = 'Common';
     } else if (j < 11) {
-      difficulty = 'uncommon';
+      difficulty = 'Uncommon';
     } else {
-      difficulty = 'rare';
+      difficulty = 'Rare';
     }
     const challenge = await Challenge.create({
       name: challengeNames[j],
