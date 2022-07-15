@@ -46,7 +46,7 @@ const init = async () => {
     io.on('connection', (client) => {
       client.on('resetFeed', async (id) => {
         console.log('resetFeed RAN');
-        const feed = await getFeed(id);
+        const feed = await getFeed(parseInt(id));
         io.sockets.emit('resetFeed', feed);
       });
       client.on('event', (data) => {
