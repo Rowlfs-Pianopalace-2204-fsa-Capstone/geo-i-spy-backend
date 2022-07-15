@@ -9,6 +9,7 @@ const {
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 const seed = require('../script/seed');
+const getFeed = require('./socket-functions');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -45,8 +46,8 @@ const init = async () => {
     io.on('connection', (client) => {
       client.on('resetFeed', async () => {
         console.log('resetFeed RAN');
-        const users = await User.findAll();
-        io.sockets.emit('resetFeed', users);
+        const feed = await getFeed();
+        io.sockets.emit('resetFeed', feed);
       });
       client.on('event', (data) => {
         console.log('event:', data);
