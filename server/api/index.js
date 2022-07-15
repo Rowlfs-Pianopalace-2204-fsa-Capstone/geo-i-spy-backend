@@ -7,6 +7,7 @@ router.use('/users', require('./users'));
 router.use('/challenges', require('./challenges'));
 router.use('/followers', require('./followers'));
 router.use('/achievements', require('./achievements'));
+router.use('/messages', require('./messages'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
