@@ -11,7 +11,7 @@ const {
 const User = require('../db/models/user');
 const Achievements = require('../db/models/achievements');
 const e = require('express');
-const getFeed = require('../socket-functions');
+const getFeed = require('../get-feed');
 const cloudinary = require('cloudinary').v2;
 module.exports = router;
 
