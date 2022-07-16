@@ -50,3 +50,18 @@ router.put('/:id', requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:id', requireToken, async (req, res, next) => {
+  try {
+    const message = await Message.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['id', 'username', 'img_url'] },
+        { model: Room },
+      ],
+    });
+
+    res.send(message);
+  } catch (err) {
+    next(err);
+  }
+});
