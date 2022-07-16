@@ -18,17 +18,9 @@ const User = db.define('user', {
   },
   first: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
   last: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
   password: {
     type: Sequelize.STRING,
