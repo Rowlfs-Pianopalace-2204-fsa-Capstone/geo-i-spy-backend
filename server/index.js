@@ -50,10 +50,10 @@ const init = async () => {
         const feed = await getFeed(parseInt(id));
         io.sockets.emit('resetFeed', feed);
       });
-      client.on('resetMessage', async (id, receiverId) => {
+      client.on('resetMessage', async (obj) => {
         console.log('resetMessage RAN');
-        const message = await getMessage(parseInt(id));
-        io.sockets.emit(`resetMessage${receiverId}`, message);
+        const message = await getMessage(parseInt(obj.id));
+        io.sockets.emit(`resetMessage${obj.userId}`, message);
       });
       client.on('event', (data) => {
         console.log('event:', data);
