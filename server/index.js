@@ -53,6 +53,7 @@ const init = async () => {
       client.on('resetMessage', async (obj) => {
         console.log('resetMessage RAN');
         const message = await getMessage(parseInt(obj.id));
+        console.log(obj);
         io.sockets.emit(`resetMessage${obj.userId}`, message);
       });
       client.on('event', (data) => {
