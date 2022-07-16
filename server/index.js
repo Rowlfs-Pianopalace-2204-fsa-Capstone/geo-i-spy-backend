@@ -9,7 +9,7 @@ const {
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 const seed = require('../script/seed');
-const getFeed = require('./socket-functions');
+const { getFeed, getMessage } = require('./socket-helpers');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -48,6 +48,11 @@ const init = async () => {
         console.log('resetFeed RAN');
         const feed = await getFeed(parseInt(id));
         io.sockets.emit('resetFeed', feed);
+      });
+      client.on('resetMessage', async (id) => {
+        console.log('resetMessage RAN');
+        const message = await getMessage(parseInt(id));
+        io.sockets.emit('resetMessage', message);
       });
       client.on('event', (data) => {
         console.log('event:', data);
