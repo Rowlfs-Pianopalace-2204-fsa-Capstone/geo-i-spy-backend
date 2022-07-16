@@ -46,7 +46,7 @@ router.get('/', requireToken, async (req, res, next) => {
 router.post('/:id', requireToken, async (req, res, next) => {
   try {
     const room = await Room.create();
-    const otherUser = User.findByPk(req.params.id);
+    const otherUser = await User.findByPk(req.params.id);
 
     req.user.addRoom(room);
     otherUser.addRoom(room);
