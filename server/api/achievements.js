@@ -70,22 +70,23 @@ router.post('/:id', requireToken, async (req, res, next) => {
       challenge = await Challenge.findByPk(req.params.id);
     }
     const completedChallenge = await challenge.addUser(req.user.id);
+
     //
     if (completedChallenge) {
       await completedChallenge[0].update({
         img_url: uploadResponse.url,
       });
-      req.user.update({
+      await req.user.update({
         score: req.user.score + challenge.score,
       });
     } else {
       if (challenge.weeklyChallenge && req.user.dailyToken === 1) {
-        req.user.update({
+        await req.user.update({
           dailyToken: 0,
           score: req.user.score + challenge.score,
         });
       }
-      const updatePicture = challenge.users[0].Achievement;
+      const updatePicture = await challenge.users[0].Achievement;
       updatePicture.update({ img_url: uploadResponse.url });
     }
 
