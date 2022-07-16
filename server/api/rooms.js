@@ -17,9 +17,12 @@ router.get('/', requireToken, async (req, res, next) => {
     //   },
     // });
     const rooms = await Room.findAll({
-      include: {
-        model: User,
-      },
+      include: [
+        {
+          model: User,
+        },
+        { model: Message },
+      ],
     });
 
     //Schema was built on the fly and not great so this is patchwork
@@ -59,6 +62,10 @@ router.get('/:id', requireToken, async (req, res, next) => {
     const room = await Room.findByPk(req.params.id, {
       include: {
         model: Message,
+        include: {
+          model: User,
+          attributes: ['id', 'username', 'img_url'],
+        },
       },
     });
     res.json(room);
