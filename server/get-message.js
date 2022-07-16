@@ -5,13 +5,16 @@ const Room = require('./db/models/rooms');
 const User = require('./db/models/user');
 
 const getMessage = async (id) => {
-  const message = await Message.findByPk(id, {
-    include: [
-      { model: User, attributes: ['id', 'username', 'img_url'] },
-      { model: Room },
-    ],
+  const room = await Room.findByPk(id, {
+    include: {
+      model: Message,
+      include: {
+        model: User,
+        attributes: ['id', 'username', 'img_url'],
+      },
+    },
   });
-  return message;
+  return room;
 };
 
 module.exports = getMessage;
