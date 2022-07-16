@@ -1,7 +1,7 @@
 /** @format */
 
-const Challenge = require('../db/models/challenges');
-const User = require('../db/models/user');
+const Challenge = require('./db/models/challenges');
+const User = require('./db/models/user');
 
 const getFeed = async (id) => {
   const reponse = await User.findByPk(id, {

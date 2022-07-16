@@ -9,7 +9,8 @@ const {
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 const seed = require('../script/seed');
-const { getFeed, getMessage } = require('./socket-helpers');
+const getFeed = require('./get-feed');
+const getMessage = require('./get-message');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
