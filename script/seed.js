@@ -19,6 +19,7 @@ const challengeNames = [
   'Cone',
   'Train',
   'Bridge',
+  'Statue',
 ];
 const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
