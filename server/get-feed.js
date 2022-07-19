@@ -53,8 +53,8 @@ const getFeed = async (id) => {
   // allFollowingAchievements.push(reponse);
   allFollowingAchievements.sort(function (x, y) {
     return (
-      new Date(x.challenge.Achievement.createAt) -
-      new Date(y.challenge.Achievement.creatAT)
+      new Date(x.challenge.Achievement.updatedAt) -
+      new Date(y.challenge.Achievement.updatedAt)
     );
   });
   console.log(allFollowingAchievements);
