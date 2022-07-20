@@ -110,7 +110,15 @@ router.get('/search/:id', requireToken, async (req, res, next) => {
     const term = '%' + req.params.id + '%';
 
     const users = await User.findAll({
-      attributes: ['id', 'username', 'img_url', 'biography', 'score', 'email'],
+      attributes: [
+        'id',
+        'username',
+        'img_url',
+        'biography',
+        'score',
+        'email',
+        'name',
+      ],
       where: {
         username: {
           [Sequelize.Op.iLike]: term,
