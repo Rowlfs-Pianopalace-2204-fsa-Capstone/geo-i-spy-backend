@@ -1,10 +1,12 @@
 /** @format */
 const challengeNames = [
+  'Laptop',
   'Bottle',
   'Beverage can',
   'Laptop',
   'Scoreboard',
   'Flower',
+  'Cat',
   'Dog',
   'Stop sign',
   'Fire hydrant',
@@ -14,6 +16,7 @@ const challengeNames = [
   'Vending machine',
   'Mailbox',
   'Bench',
+  'Palm tree',
   'Cone',
   'Train',
   'Snail',
@@ -41,6 +44,8 @@ const challengeNames = [
   'Castle',
   'Helicopter',
   'Horse',
+  'Dolphin',
+  'Harp',
 ];
 const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
