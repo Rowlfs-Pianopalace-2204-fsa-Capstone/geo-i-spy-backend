@@ -32,7 +32,7 @@ const User = db.define('user', {
   img_url: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://res.cloudinary.com/hckemznha/image/upload/v1657506408/default-profile-picture1_m7cxma.jpg',
+      'https://res.cloudinary.com/hg7r49vph/image/upload/v1658361108/default_profile/34AD2_k98fe0.jpg',
   },
   email: {
     type: Sequelize.STRING,
