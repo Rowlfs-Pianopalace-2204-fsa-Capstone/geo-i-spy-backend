@@ -1,46 +1,47 @@
 /** @format */
 const challengeNames = [
+  'Laptop',
   'Bottle',
   'Vending machine',
   'Beverage can',
+  'Waste container',
   'Fire hydrant',
   'Manhole cover',
   'Bench',
-  'Mailbox',
-  'Mouse',
-  'Laptop',
   'Stop sign',
-  'Horse',
+  'Mailbox',
+  'Mushroom',
+  'Flower',
+  'Snail',
+  'Cat',
   'Dog',
-  'Waste container',
+  'Mouse',
   'Fountain',
   'Flower',
   'Traffic light',
+  'Baloon',
+  'French horn',
+  'Squirrel',
+  'Cake',
   'Cone',
   'Train',
   'Bridge',
   'Statue',
-  'Flower',
+  'Lavender',
   'Jet Ski',
+  'Christmas tree',
   'Elephant',
   'Aircraft',
-  'Cake',
-  'Christmas tree',
-  'Castle',
   'Scoreboard',
-  'Squirrel',
   'Sushi',
-  'Baloon',
-  'Barge',
   'Butterfly',
-  'French horn',
   'Helicopter',
-  'Lavender',
   'Lighthouse',
-  'Mushroom',
+  'Castle',
   'Skyscraper',
-  'Snail',
+  'Barge',
   'Turkey',
+  'Horse',
 ];
 const userNames = ['Cody', 'murphy', 'larry', 'joe', 'laura', 'jose'];
 
@@ -74,9 +75,9 @@ async function seed() {
   console.log(`seeded users ${users.length}`);
   for (let j = 0; j < challengeNames.length; j++) {
     let difficulty;
-    if (j < 8) {
+    if (j < 12) {
       difficulty = 'Common';
-    } else if (j < 11) {
+    } else if (j < 24) {
       difficulty = 'Uncommon';
     } else {
       difficulty = 'Rare';
