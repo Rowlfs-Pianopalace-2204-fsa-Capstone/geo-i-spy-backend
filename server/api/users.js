@@ -63,6 +63,7 @@ router.put('/edit', requireToken, async (req, res, next) => {
       email: req.body.email || user.email,
       score: parseInt(req.body.score) || user.score,
       biography: req.body.biography || user.biography,
+      first: req.body.first || user.first,
     };
     await user.update(updatedInformation);
     res.json(user);
