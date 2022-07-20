@@ -19,7 +19,7 @@ const getFeed = async (id) => {
     ],
   });
 
-  const allFollowingAchievements = [];
+  let allFollowingAchievements = [];
   let i = 0;
   while (reponse.followers.length > i) {
     if (reponse.followers[0].challenges[0]) {
@@ -57,7 +57,7 @@ const getFeed = async (id) => {
       new Date(y.challenge.Achievement.updatedAt)
     );
   });
-  console.log(allFollowingAchievements);
+  allFollowingAchievements = allFollowingAchievements.reverse();
   return allFollowingAchievements;
 };
 
