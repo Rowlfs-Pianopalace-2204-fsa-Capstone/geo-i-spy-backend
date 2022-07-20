@@ -117,7 +117,8 @@ router.get('/search/:id', requireToken, async (req, res, next) => {
         'biography',
         'score',
         'email',
-        'name',
+        'first',
+        'last',
       ],
       where: {
         username: {
