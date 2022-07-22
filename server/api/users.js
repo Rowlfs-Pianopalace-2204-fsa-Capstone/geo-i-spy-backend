@@ -13,7 +13,7 @@ module.exports = router;
 router.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'username'],
+      attributes: ['id', 'username', 'first', 'last'],
     });
     res.json(users);
   } catch (err) {
@@ -30,6 +30,8 @@ router.get('/:id', requireToken, async (req, res, next) => {
       user = await User.findByPk(req.params.id, {
         attributes: [
           'id',
+          'first',
+          'last',
           'username',
           'img_url',
           'biography',
@@ -64,6 +66,7 @@ router.put('/edit', requireToken, async (req, res, next) => {
       score: parseInt(req.body.score) || user.score,
       biography: req.body.biography || user.biography,
       first: req.body.first || user.first,
+      last: req.body.last || user.last,
     };
     await user.update(updatedInformation);
     res.json(user);
@@ -100,6 +103,8 @@ router.put('/edit/:id', requireToken, isAdmin, async (req, res, next) => {
       email: req.body.email || user.email,
       score: parseInt(req.body.score) || user.score,
       biography: req.body.biography || user.biography,
+      first: req.body.first || user.first,
+      last: req.body.last || user.last,
     };
     await user.update(updatedInformation);
     res.json(user);

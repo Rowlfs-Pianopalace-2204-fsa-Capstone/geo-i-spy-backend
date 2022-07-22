@@ -25,6 +25,8 @@ router.get('/:id', requireToken, async (req, res, next) => {
             'biography',
             'score',
             'email',
+            'first',
+            'last',
           ],
         },
       ],
@@ -53,6 +55,8 @@ router.get('/following/:id', requireToken, async (req, res, next) => {
             'biography',
             'score',
             'email',
+            'first',
+            'last',
           ],
         },
       ],
@@ -102,6 +106,8 @@ router.get('/search/:id', requireToken, async (req, res, next) => {
           'biography',
           'score',
           'email',
+          'first',
+          'last',
         ],
       });
       userList.push(searched);
