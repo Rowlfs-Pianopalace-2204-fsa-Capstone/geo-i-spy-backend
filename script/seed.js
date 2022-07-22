@@ -1,10 +1,8 @@
 /** @format */
 const challengeNames = [
-  'Laptop',
   'Bottle',
   'Beverage can',
   'Laptop',
-  'Scoreboard',
   'Flower',
   'Cat',
   'Dog',
@@ -37,7 +35,6 @@ const challengeNames = [
   'Jet Ski',
   'Statue',
   'Elephant',
-  'Barge',
   'Christmas tree',
   'Lighthouse',
   'French horn',
